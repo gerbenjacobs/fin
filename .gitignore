@@ -26,3 +26,5 @@ config*.yaml
 !/testdata/*.csv
 !/config.yaml
 !/agg.json
+
+dist/

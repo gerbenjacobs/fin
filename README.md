@@ -74,6 +74,7 @@ symbols:
 ![Screenshot of the reporting UI](report/reporting.png)
 
 The project has a reporting tool that can be used to generate a report of your portfolio.
+It's also available at https://fin.gerben.dev as hosted by GitHub Pages.
 
 It uses jQuery, Bootstrap and Bootstrap Table to generate the report. It has a local file mode using LocalStorage,
 with the resources coming from a CDN. This means you can just open the `report/index.html` file in your browser

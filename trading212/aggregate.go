@@ -57,7 +57,9 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 			a.TotalDividend += e.Total
 			totals.Dividends += e.Total
 		}
+
 		// calculate all fees and update
+		a.ShareCount = floorFloat(a.ShareCount, 6)
 		a.Fees += e.Fees()
 		totals.Fees += e.Fees()
 		totals.Taxes += e.Tax
@@ -92,8 +94,6 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 
 	// format money values to 2 decimals
 	for s, stock := range stocks {
-		stock.ShareCount = floorFloat(stock.ShareCount, 6)
-
 		stock.AvgPrice = floorFloat(stock.AvgPrice, 2)
 		stock.ShareCost = floorFloat(stock.ShareCost, 2)
 		stock.ShareCostLocal = floorFloat(stock.ShareCostLocal, 2)

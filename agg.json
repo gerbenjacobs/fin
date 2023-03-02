@@ -1,0 +1,72 @@
+[
+ {
+  "Symbol": "ABEC",
+  "Name": "Alphabet (Class C)",
+  "ShareCount": 2.371238,
+  "AvgPrice": 113.86,
+  "PriceCurrency": "EUR",
+  "ShareCost": 270,
+  "ShareCostLocal": 270,
+  "ShareResult": 0,
+  "TotalDividend": 0,
+  "Fees": 0,
+  "Final": 0,
+  "LastUpdate": "2022-07-29T14:28:17Z"
+ },
+ {
+  "Symbol": "FB",
+  "Name": "Meta Platforms",
+  "ShareCount": 0.086391,
+  "AvgPrice": 362,
+  "PriceCurrency": "USD",
+  "ShareCost": 31.27,
+  "ShareCostLocal": 26.67,
+  "ShareResult": 0,
+  "TotalDividend": 0,
+  "Fees": 0.04,
+  "Final": -0.04,
+  "LastUpdate": "2021-08-09T18:31:41Z"
+ },
+ {
+  "Symbol": "MSFT",
+  "Name": "Microsoft",
+  "ShareCount": 0,
+  "AvgPrice": 0,
+  "PriceCurrency": "USD",
+  "ShareCost": 0,
+  "ShareCostLocal": 0,
+  "ShareResult": 2.61,
+  "TotalDividend": 0.11,
+  "Fees": 0.2,
+  "Final": 2.51,
+  "LastUpdate": "2021-09-30T11:15:32Z"
+ },
+ {
+  "Symbol": "SAN",
+  "Name": "Sanofi",
+  "ShareCount": 0.111796,
+  "AvgPrice": 89.18,
+  "PriceCurrency": "EUR",
+  "ShareCost": 9.97,
+  "ShareCostLocal": 10,
+  "ShareResult": 0,
+  "TotalDividend": 0,
+  "Fees": 0.03,
+  "Final": -0.03,
+  "LastUpdate": "2022-03-07T16:10:26Z"
+ },
+ {
+  "Symbol": "TSLA",
+  "Name": "Tesla",
+  "ShareCount": 0.076654,
+  "AvgPrice": 713.94,
+  "PriceCurrency": "USD",
+  "ShareCost": 54.72,
+  "ShareCostLocal": 46.67,
+  "ShareResult": 0,
+  "TotalDividend": 0,
+  "Fees": 0.07,
+  "Final": -0.08,
+  "LastUpdate": "2021-08-09T18:31:41Z"
+ }
+]

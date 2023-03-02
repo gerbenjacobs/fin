@@ -1,0 +1,34 @@
+---
+# Required config
+input: testdata # folder where your Trading212 CSVs are stored
+output: agg # name of output file (prefix)
+format: aggregate # aggregate or yahoo
+
+# Optional config
+skip-pies: true # skip splitting by pies (default: false)
+pie-only: "" # only generate this pie (default: "")
+
+# Splits is a list of split events relevant to your portfolio
+# this is needed to calculate the total stock count
+splits:
+  - symbol: ABEC
+    date: 2022-07-16
+    ratio: 20 # for reverse splits, use a decimal ratio
+
+# Symbols is a list of conversions to take Trading212 symbols
+# and convert them to the symbols used by Yahoo portfolios
+symbols:
+  RIO: RIO.L
+  SAN: SAN.PA
+
+# Pies allows you split your aggregation into multiple CSVs
+# uncomment to use
+#pies:
+#  - name: Growth
+#    symbols:
+#      - GOOG
+#      - AMZN
+#  - name: Dividend
+#    symbols:
+#      - PEP
+#      - JNJ

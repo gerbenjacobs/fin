@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Trading212 Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <style>
+        #hero {
+            background-color: #373946;
+            border-radius: 20px;
+            color: #fff;
+        }
+
+        .dakje {
+            color: #0AA8E2;
+            font-weight: bolder;
+        }
+
+        a {
+            color: #0AA8E2;
+        }
+
+        a:hover {
+            color: #4d92ab;
+            text-decoration: none;
+        }
+
+        .btn-secondary {
+            background-color: #373946;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div id="hero" class="my-2 p-3">
+            <h1>Tr<span class="dakje">^</span>ding212 Financial Report</h1>
+            <p>
+                Reporting tool for your Trading212 portfolio.
+                You can use the <a href="https://github.com/gerbenjacobs/fin">fin-tool</a> to generate
+                your aggregated portfolio report.
+            </p>
+            <p>
+                Your file is only stored locally in your browser.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div id="toolbar" class="input-group">
+            <label class="input-group-text" for="agg">Input</label>
+            <input class="form-control" type="file" id="agg">
+            <label class="input-group-text" for="currency">Currency</label>
+            <select class="form-select" name="currency" id="currency">
+                <option value="EUR" selected>EUR</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+            </select>
+            <button id="sold" class="form-control btn btn-secondary">Toggle active shares</button>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped" id="table"
+               data-toggle="table"
+               data-search="true"
+               data-toolbar="#toolbar"
+               data-show-fullscreen="true"
+               data-show-columns="true"
+               data-show-columns-toggle-all="true"
+               data-show-footer="true"
+               data-pagination="true"
+               data-id-field="Symbol"
+               data-page-list="[10, 25, 50, all]"
+               data-page-size="25">
+            <thead>
+            <tr>
+                <th data-sortable="true" data-field="Symbol">Symbol</th>
+                <th data-sortable="true" data-field="Name">Name</th>
+                <th data-sortable="true" data-field="ShareCount">Shares</th>
+                <th data-sortable="true" data-formatter="priceFormatter" data-field="AvgPrice">Avg. Price</th>
+                <th data-sortable="true" data-formatter="priceFormatter" data-footer-formatter="priceTotalFormatter"
+                    data-field="ShareCostLocal">Invested
+                </th>
+                <th data-sortable="true" data-formatter="priceFormatter" data-footer-formatter="priceTotalFormatter"
+                    data-field="Fees">Fees
+                </th>
+                <th data-sortable="true" data-formatter="priceFormatter" data-footer-formatter="priceTotalFormatter"
+                    data-field="TotalDividend">Dividends
+                </th>
+                <th data-sortable="true" data-formatter="priceFormatter" data-footer-formatter="priceTotalFormatter"
+                    data-field="ShareResult">Realized
+                </th>
+                <th data-sortable="true" data-formatter="priceFormatter" data-footer-formatter="priceTotalFormatter"
+                    data-field="Final">Result
+                </th>
+                <th data-sortable="true" data-formatter="timeFormatter" data-field="LastUpdate">Last update</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
+<script>
+    let defaultPortfolioCurrency = 'EUR';
+    const defaultLocale = 'en';
+
+    function styleCurrency(value, field, currency) {
+        if (currency === null) {
+            currency = 'EUR';
+        }
+        const formatter = new Intl.NumberFormat(undefined, {
+            style: 'currency',
+            currency: currency,
+            minimumFractionDigits: 2,
+        });
+        let style;
+        switch (true) {
+            case field === "ShareCost":
+            case field === "AvgPrice":
+                style = "text-body";
+                break;
+            case field === "Fees":
+                style = "text-danger";
+                break;
+            case value === 0:
+                style = 'text-secondary';
+                break;
+            case value < 0:
+                style = 'text-danger';
+                break;
+            case value > 0:
+                style = 'text-success';
+                break;
+        }
+        return '<span class="' + style + '">' + formatter.format(value) + '</span>'
+    }
+
+    function priceFormatter(value, row, index, field) {
+        let currency = field === "AvgPrice" ? row.PriceCurrency : defaultPortfolioCurrency;
+        return styleCurrency(value, field, currency)
+    }
+
+    function priceTotalFormatter(data) {
+        let field = this.field
+        let v = data.map(function (row) {
+            return +row[field]
+        }).reduce(function (sum, i) {
+            return sum + i
+        }, 0)
+        return styleCurrency(v, field, defaultPortfolioCurrency)
+    }
+
+    function timeFormatter(value) {
+        let v = timeAgo(new Date(value))
+        return '<span title="' + value + '">' + v + '</span>';
+    }
+
+    function timeAgo(timestamp, locale = defaultLocale) {
+        let value;
+        const diff = (new Date().getTime() - timestamp.getTime()) / 1000;
+        const minutes = Math.floor(diff / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+        const months = Math.floor(days / 30);
+        const years = Math.floor(months / 12);
+        const rtf = new Intl.RelativeTimeFormat(locale, {numeric: "auto"});
+
+        if (years > 1) {
+            value = rtf.format(0 - years, "year");
+        } else if (months > 1) {
+            value = rtf.format(0 - months, "month");
+        } else if (days > 0) {
+            value = rtf.format(0 - days, "day");
+        } else if (hours > 0) {
+            value = rtf.format(0 - hours, "hour");
+        } else if (minutes > 0) {
+            value = rtf.format(0 - minutes, "minute");
+        } else {
+            value = rtf.format(0 - diff, "second");
+        }
+        return value;
+    }
+
+    function changeCurrency() {
+        defaultPortfolioCurrency = $currency.val();
+        localStorage.setItem('currency', defaultPortfolioCurrency);
+        // hack to force formatter refresh
+        $table.bootstrapTable('toggleView');
+        $table.bootstrapTable('toggleView');
+    }
+
+    let $file = $('#agg');
+    let $currency = $('#currency');
+    let $table = $('#table');
+    let $customButton = $('#sold');
+    let $hideSold = false;
+
+    $(function () {
+        // handle active shares button
+        $customButton.click(function () {
+            // toggle hideSold value
+            $hideSold = !$hideSold;
+
+            $table.bootstrapTable('filterBy', {
+                hideSold: $hideSold
+            }, {
+                'filterAlgorithm': (row, filters) => {
+                    return (filters.hideSold) ? row.ShareCount > 0 : true;
+                }
+            })
+        })
+
+        // handle file updates
+        $file.change(function () {
+            let file = this.files[0];
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    let data = JSON.parse(e.target.result);
+                    $table.bootstrapTable('load', data);
+                    localStorage.setItem('agg', e.target.result);
+                } catch (e) {
+                    alert('Invalid file format');
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        // load data from localstorage
+        let data = localStorage.getItem('agg');
+        if (data) {
+            $table.bootstrapTable('load', JSON.parse(data));
+        }
+
+        // handle currency change
+        let currency = localStorage.getItem('currency');
+        if (currency !== null) {
+            $currency.val(currency);
+            changeCurrency();
+        }
+        // on any change, update currency
+        $currency.change(changeCurrency);
+    })
+</script>
+</body>
+</html>

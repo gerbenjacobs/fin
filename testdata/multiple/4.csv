@@ -1,0 +1,7 @@
+Action,Time,ISIN,Ticker,Name,No. of shares,Price / share,Currency (Price / share),Exchange rate,Result (EUR),Total (EUR),Withholding tax,Currency (Withholding tax),Charge amount (EUR),Deposit fee (EUR),Stamp duty reserve tax (EUR),Notes,ID,Currency conversion fee (EUR),French transaction tax
+Market buy,2021-08-09 18:31:41,US5949181045,MSFT,"Microsoft",0.2709950000,288.53,USD,1.17437,,66.68,,,,,,,EOF3,0.10,
+Market sell,2021-08-30 13:30:03,US5949181045,MSFT,"Microsoft",0.2709950000,301.14,USD,1.17951,2.61,69.09,,,,,,,EOF4,0.10,
+Deposit,2021-09-07 13:43:10,,,,,,,,,1000.00,,,1001.40,1.40,,"Transaction ID: xxx",3e8f5274-1c62-46d6-baf4-xxx,,
+Market buy,2021-09-27 13:19:13,US02079K1079,ABEC,"Google",0.0041253700,2424.00,EUR,1.00000,,10.00,,,,,,,EOF5,,
+Dividend (Ordinary),2021-09-30 11:15:32,US5949181045,MSFT,"Microsoft",0.2709950000,0.48,USD,Not available,,0.11,0.02,USD,,,,,,,
+

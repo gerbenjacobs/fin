@@ -1,0 +1,4 @@
+Action,Time,ISIN,Ticker,Name,No. of shares,Price / share,Currency (Price / share),Exchange rate,Result (EUR),Total (EUR),Withholding tax,Currency (Withholding tax),Charge amount (EUR),Deposit fee (EUR),Stamp duty reserve tax (EUR),Notes,ID,Currency conversion fee (EUR),French transaction tax
+Market buy,2022-03-07 16:10:26,FR0000120578,SAN,"Sanofi",0.1117960000,89.18,EUR,1.00000,,10.00,,,,,,,EOF6,,0.03
+Market buy,2022-07-29 14:28:17,US02079K1079,ABEC,"Alphabet (Class C)",2.2887315000,113.60,EUR,1.00000,,260.00,,,,,,,EOF7,,
+

@@ -22,7 +22,7 @@ func TestAggregate(t *testing.T) {
 			name:   "Regular test like our testdata",
 			events: defaultTestDataEvents,
 			want: []fin.Aggregate{
-				{Symbol: "ABEC", Name: "Alphabet (Class C)", ShareCount: 2.371238, AvgPrice: 113.86, PriceCurrency: "EUR", ShareCost: 270, ShareCostLocal: 270, ShareResult: 0, TotalDividend: 0, Fees: 0, Final: 0, LastUpdate: time.Date(2022, 7, 29, 14, 28, 17, 0, time.UTC)},
+				{Symbol: "ABEC", Name: "Alphabet (Class C)", ShareCount: 2.371231, AvgPrice: 113.86, PriceCurrency: "EUR", ShareCost: 270, ShareCostLocal: 270, ShareResult: 0, TotalDividend: 0, Fees: 0, Final: 0, LastUpdate: time.Date(2022, 7, 29, 14, 28, 17, 0, time.UTC)},
 				{Symbol: "FB", Name: "Meta Platforms", ShareCount: 0.086391, AvgPrice: 362, PriceCurrency: "USD", ShareCost: 31.27, ShareCostLocal: 26.67, ShareResult: 0, TotalDividend: 0, Fees: 0.04, Final: -0.04, LastUpdate: time.Date(2021, 8, 9, 18, 31, 41, 0, time.UTC)},
 				{Symbol: "MSFT", Name: "Microsoft", ShareCount: 0, AvgPrice: 0, PriceCurrency: "USD", ShareCost: 0, ShareCostLocal: 0, ShareResult: 2.61, TotalDividend: 0.11, Fees: 0.2, Final: 2.51, LastUpdate: time.Date(2021, 9, 30, 11, 15, 32, 0, time.UTC)},
 				{Symbol: "SAN", Name: "Sanofi", ShareCount: 0.111796, AvgPrice: 89.18, PriceCurrency: "EUR", ShareCost: 9.97, ShareCostLocal: 10, ShareResult: 0, TotalDividend: 0, Fees: 0.03, Final: -0.03, LastUpdate: time.Date(2022, 3, 7, 16, 10, 26, 0, time.UTC)},

@@ -45,7 +45,7 @@ func main() {
 	if skipPies != nil && *skipPies {
 		cfg.SkipPies = *skipPies
 	}
-	if pieOnly != nil {
+	if pieOnly != nil && *pieOnly != "" {
 		cfg.PieOnly = *pieOnly
 	}
 

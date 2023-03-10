@@ -31,11 +31,11 @@ func TestAggregate(t *testing.T) {
 			totals: &fin.Totals{
 				Deposits:    2001.4,
 				DepositFees: 1.40,
-				Invested:    353.2,
+				Invested:    353.54,
 				Realized:    2.61,
 				Dividends:   0.11,
 				Fees:        0.34,
-				Cash:        1649.17,
+				Cash:        1648.84,
 				Taxes:       0.02,
 			},
 		},

@@ -44,9 +44,9 @@ type TradeEvent struct {
 	ShareCount    float64  `csv:"No. of shares,omitempty"`
 	SharePrice    float64  `csv:"Price / share,omitempty"`
 	ShareCurrency string   `csv:"Currency (Price / share)"`
-	ExchangeRate  string   `csv:"Exchange rate,omitempty"`
-	Result        float64  `csv:"Result (EUR),omitempty"` // gain or loss
-	Total         float64  `csv:"Total (EUR),omitempty"`  // total money gained
+	ExchangeRate  string   `csv:"Exchange rate,omitempty"` // this field is not always set as a number
+	Result        float64  `csv:"Result (EUR),omitempty"`  // gain or loss
+	Total         float64  `csv:"Total (EUR),omitempty"`   // total money gained
 	Tax           float64  `csv:"Withholding tax,omitempty"`
 	TaxCurrency   string   `csv:"Currency (Withholding tax)"`
 	Deposit       float64  `csv:"Charge amount (EUR),omitempty"` // amount of money when depositing

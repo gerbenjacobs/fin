@@ -43,15 +43,18 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 			a.ShareCount += e.ShareCount
 			a.ShareCost += ceilFloat(e.ShareCount*e.SharePrice, 3)
 			a.ShareCostLocal += e.Total
-			totals.Invested += e.Total - e.Fees()
+			totals.Invested += e.Total
 		}
 		if e.IsSelling() {
 			a.ShareCount -= e.ShareCount
-			a.ShareCost -= e.Total
-			a.ShareCostLocal -= e.Total
+			// TODO: subtracting this e.Result is not ideal, as it's in the portfolio currency
+			// while it's possible for the shares to be in a different currency.
+			// However, this seems to be quite a good approximation, and works well for same currencies.
+			a.ShareCost -= ceilFloat(e.ShareCount*e.SharePrice, 3) - e.Result
+			a.ShareCostLocal -= e.Total - e.Result
 			a.ShareResult += e.Result
 			totals.Realized += e.Result
-			totals.Invested -= e.Total - e.Result + e.Fees()
+			totals.Invested -= e.Total - e.Result
 		}
 		if e.IsDividend() {
 			a.TotalDividend += e.Total
@@ -88,9 +91,7 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 	}
 
 	// calculate cash left over in portfolio
-	moneyGained := totals.Deposits + totals.Realized + totals.Dividends
-	moneySpent := totals.Invested + totals.DepositFees + totals.Fees
-	totals.Cash = moneyGained - moneySpent
+	totals.Cash = totals.CalculateCash()
 
 	// format money values to 2 decimals
 	for s, stock := range stocks {

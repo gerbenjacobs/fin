@@ -27,3 +27,9 @@ type Totals struct {
 	Cash        float64 // cash left in your portfolio
 	Taxes       float64 // taxes withheld from dividends
 }
+
+func (t Totals) CalculateCash() float64 {
+	moneyGained := t.Deposits + t.Realized + t.Dividends
+	moneySpent := t.Invested + t.DepositFees + t.Fees
+	return moneyGained - moneySpent
+}

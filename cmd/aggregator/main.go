@@ -149,6 +149,36 @@ func main() {
 			fn := writeOutput(cfg, on, o)
 			log.Printf("Written %d entries to %s using %d symbol replacements.", len(o), fn, len(cfg.Symbols))
 		}
+	case "simple":
+		var output = make(map[string][]fin.Simple)
+		for _, a := range stocks {
+			if a.ShareCount == 0 {
+				// skip entries with no quantity
+				continue
+			}
+
+			outputName := determineOutputName(cfg, a.Symbol) // use original symbol
+
+			if cfg.PieOnly != "" && cfg.PieOnly != outputName {
+				// pieOnly is set, skip all entries that don't match
+				continue
+			}
+			if cfg.SkipPies {
+				outputName = outputNone
+			}
+
+			// add output
+			output[outputName] = append(output[outputName], fin.Simple{
+				Symbol:   a.Symbol,
+				Quantity: a.ShareCount,
+				Price:    a.AvgPrice,
+			})
+		}
+
+		for on, o := range output {
+			fn := writeOutput(cfg, on, o)
+			log.Printf("Written %d entries to %s.", len(o), fn)
+		}
 	default:
 		log.Fatalf("Unknown output format: %s", cfg.Format)
 	}

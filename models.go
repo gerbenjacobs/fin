@@ -27,3 +27,9 @@ type Totals struct {
 	Cash        float64 // cash left in your portfolio
 	Taxes       float64 // taxes withheld from dividends
 }
+
+type Simple struct {
+	Symbol   string  `csv:"Symbol"`
+	Quantity float64 `csv:"Quantity"`
+	Price    float64 `csv:"Price"`
+}

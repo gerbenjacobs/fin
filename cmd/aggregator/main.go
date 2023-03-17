@@ -141,7 +141,7 @@ func main() {
 				Symbol:        sym,
 				Quantity:      a.ShareCount,
 				PurchasePrice: a.AvgPrice,
-				Date:          yahoo.Date{Time: a.LastUpdate},
+				TradeDate:     a.LastUpdate.Format("20060102"),
 			})
 		}
 

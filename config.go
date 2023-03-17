@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/go-yaml/yaml"
+	"gopkg.in/yaml.v3"
 )
 
 const defaultConfig = "config.yaml"

@@ -21,6 +21,12 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 			continue
 		}
 
+		// handle interest
+		if e.Action == ActionInterest {
+			totals.Interest += e.Total
+			continue
+		}
+
 		// create entry if it doesn't exist
 		if _, ok := stocks[e.TickerSymbol]; !ok {
 			stocks[e.TickerSymbol] = fin.Aggregate{

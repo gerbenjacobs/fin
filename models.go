@@ -26,4 +26,5 @@ type Totals struct {
 	Fees        float64 // fees you paid
 	Cash        float64 // cash left in your portfolio
 	Taxes       float64 // taxes withheld from dividends
+	Interest    float64 // interest you received on cash
 }

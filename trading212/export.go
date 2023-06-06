@@ -17,6 +17,7 @@ const (
 	ActionLimitSell     = "Limit sell"
 	ActionStopBuy       = "Stop buy"
 	ActionStopSell      = "Stop sell"
+	ActionInterest      = "Interest on cash"
 )
 
 func (e *TradeEvent) IsBuying() bool {

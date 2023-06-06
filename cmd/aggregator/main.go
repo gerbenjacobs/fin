@@ -89,6 +89,7 @@ func main() {
 		"fees":        totals.Fees,
 		"taxes":       totals.Taxes,
 		"cash":        totals.Cash,
+		"interest":    totals.Interest,
 	}).Info("Completed aggregation.")
 
 	// write output

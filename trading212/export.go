@@ -1,35 +1,22 @@
 package trading212
 
 import (
+	"strings"
 	"time"
 )
 
 const format = "2006-01-02 15:04:05"
 
-const (
-	ActionDeposit       = "Deposit"
-	ActionMarketBuy     = "Market buy"
-	ActionMarketSell    = "Market sell"
-	ActionDividend      = "Dividend (Ordinary)"
-	ActionDividendBonus = "Dividend (Bonus)"
-	ActionDividendROC   = "Dividend (Return of capital)"
-	ActionLimitBuy      = "Limit buy"
-	ActionLimitSell     = "Limit sell"
-	ActionStopBuy       = "Stop buy"
-	ActionStopSell      = "Stop sell"
-	ActionInterest      = "Interest on cash"
-)
-
 func (e *TradeEvent) IsBuying() bool {
-	return e.Action == ActionMarketBuy || e.Action == ActionLimitBuy || e.Action == ActionStopBuy
+	return strings.Contains(e.Action, "buy")
 }
 
 func (e *TradeEvent) IsSelling() bool {
-	return e.Action == ActionMarketSell || e.Action == ActionLimitSell || e.Action == ActionStopSell
+	return strings.Contains(e.Action, "sell")
 }
 
 func (e *TradeEvent) IsDividend() bool {
-	return e.Action == ActionDividend || e.Action == ActionDividendBonus || e.Action == ActionDividendROC
+	return strings.Contains(e.Action, "Dividend")
 }
 
 func (e *TradeEvent) Fees() float64 {

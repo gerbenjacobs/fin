@@ -42,8 +42,8 @@ func TestAggregate(t *testing.T) {
 		{
 			name: "Test with a split",
 			events: []TradeEvent{
-				{Action: ActionMarketBuy, Time: DateTime{Time: time.Date(2021, 9, 27, 13, 19, 13, 0, time.UTC)}, TickerSymbol: "ABEC", ShareCount: 0.005, SharePrice: 2000.00, Total: 10.00, ID: "EOF1"},
-				{Action: ActionMarketBuy, Time: DateTime{Time: time.Date(2022, 9, 27, 13, 19, 13, 0, time.UTC)}, TickerSymbol: "ABEC", ShareCount: 0.125, SharePrice: 80.00, Total: 10.00, ID: "EOF2"},
+				{Action: "Market buy", Time: DateTime{Time: time.Date(2021, 9, 27, 13, 19, 13, 0, time.UTC)}, TickerSymbol: "ABEC", ShareCount: 0.005, SharePrice: 2000.00, Total: 10.00, ID: "EOF1"},
+				{Action: "Market buy", Time: DateTime{Time: time.Date(2022, 9, 27, 13, 19, 13, 0, time.UTC)}, TickerSymbol: "ABEC", ShareCount: 0.125, SharePrice: 80.00, Total: 10.00, ID: "EOF2"},
 			},
 			want: []fin.Aggregate{
 				{Symbol: "ABEC", ShareCount: 0.225, AvgPrice: 88.88, ShareCost: 20, ShareCostLocal: 20, ShareResult: 0, TotalDividend: 0, Fees: 0, Final: 0, LastUpdate: time.Date(2022, 9, 27, 13, 19, 13, 0, time.UTC)},

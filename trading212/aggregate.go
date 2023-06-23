@@ -15,14 +15,14 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 	var totals fin.Totals
 	for _, e := range events {
 		// handle deposits
-		if e.Action == ActionDeposit {
+		if e.Action == "Deposit" {
 			totals.Deposits += e.Deposit
 			totals.DepositFees += e.DepositFee
 			continue
 		}
 
 		// handle interest
-		if e.Action == ActionInterest {
+		if e.Action == "Interest on cash" {
 			totals.Interest += e.Total
 			continue
 		}

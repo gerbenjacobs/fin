@@ -17,6 +17,7 @@ func ReadCSVFile(fileName string, dst interface{}) error {
 	}
 	defer csvFile.Close()
 
+	// TODO: (July 2023) this is not used anymore, but our tests are using it
 	gocsv.SetHeaderNormalizer(func(s string) string {
 		return string(currencyNormalizerRegex.ReplaceAll([]byte(s), []byte("")))
 	})

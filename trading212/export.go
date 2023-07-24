@@ -33,19 +33,19 @@ type TradeEvent struct {
 	SharePrice    float64  `csv:"Price / share,omitempty"`
 	ShareCurrency string   `csv:"Currency (Price / share)"`
 	ExchangeRate  string   `csv:"Exchange rate,omitempty"`
-	Result        float64  `csv:"Result (EUR),omitempty"` // gain or loss
-	Total         float64  `csv:"Total (EUR),omitempty"`  // total money gained
+	Result        float64  `csv:"Result,omitempty"` // gain or loss
+	Total         float64  `csv:"Total,omitempty"`  // total money gained
 	Tax           float64  `csv:"Withholding tax,omitempty"`
 	TaxCurrency   string   `csv:"Currency (Withholding tax)"`
-	Deposit       float64  `csv:"Charge amount (EUR),omitempty"` // amount of money when depositing
-	DepositFee    float64  `csv:"Deposit fee (EUR),omitempty"`   // fee paid to trading212
-	StampDuty     float64  `csv:"Stamp duty (EUR),omitempty"`
-	StampDutyTax  float64  `csv:"Stamp duty reserve tax (EUR),omitempty"`
+	Deposit       float64  `csv:"Charge amount,omitempty"` // amount of money when depositing
+	DepositFee    float64  `csv:"Deposit fee,omitempty"`   // fee paid to trading212
+	StampDuty     float64  `csv:"Stamp duty,omitempty"`
+	StampDutyTax  float64  `csv:"Stamp duty reserve tax,omitempty"`
 	Notes         string   `csv:"Notes"`
 	ID            string   `csv:"ID"`
-	FXFee         float64  `csv:"Currency conversion fee (EUR),omitempty"` // foreign exchange fee
+	FXFee         float64  `csv:"Currency conversion fee,omitempty"` // foreign exchange fee
 	FRFee         float64  `csv:"French transaction tax,omitempty"`
-	FinraFee      float64  `csv:"Finra fee (EUR),omitempty"`
+	FinraFee      float64  `csv:"Finra fee,omitempty"`
 }
 
 type DateTime struct {

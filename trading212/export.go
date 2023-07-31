@@ -24,7 +24,7 @@ func (e *TradeEvent) Fees() float64 {
 }
 
 type TradeEvent struct {
-	Action        string
+	Action        string   `csv:"Action"`
 	Time          DateTime `csv:"Time"`
 	ISIN          string   `csv:"ISIN"`
 	TickerSymbol  string   `csv:"Ticker"`
@@ -37,8 +37,6 @@ type TradeEvent struct {
 	Total         float64  `csv:"Total,omitempty"`  // total money gained
 	Tax           float64  `csv:"Withholding tax,omitempty"`
 	TaxCurrency   string   `csv:"Currency (Withholding tax)"`
-	Deposit       float64  `csv:"Charge amount,omitempty"` // amount of money when depositing
-	DepositFee    float64  `csv:"Deposit fee,omitempty"`   // fee paid to trading212
 	StampDuty     float64  `csv:"Stamp duty,omitempty"`
 	StampDutyTax  float64  `csv:"Stamp duty reserve tax,omitempty"`
 	Notes         string   `csv:"Notes"`

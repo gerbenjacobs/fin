@@ -14,10 +14,13 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 	var stockNames []string
 	var totals fin.Totals
 	for _, e := range events {
+		// skip currency conversions
+		if e.Action == "Currency conversion" {
+			continue
+		}
 		// handle deposits
 		if e.Action == "Deposit" {
-			totals.Deposits += e.Deposit
-			totals.DepositFees += e.DepositFee
+			totals.Deposits += e.Total
 			continue
 		}
 
@@ -95,7 +98,7 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 
 	// calculate cash left over in portfolio
 	moneyGained := totals.Deposits + totals.Realized + totals.Dividends
-	moneySpent := totals.Invested + totals.DepositFees + totals.Fees
+	moneySpent := totals.Invested + totals.Fees
 	totals.Cash = moneyGained - moneySpent
 
 	// format money values to 2 decimals
@@ -110,7 +113,6 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 		stocks[s] = stock
 	}
 	totals.Deposits = floorFloat(totals.Deposits, 2)
-	totals.DepositFees = floorFloat(totals.DepositFees, 2)
 	totals.Invested = floorFloat(totals.Invested, 2)
 	totals.Realized = floorFloat(totals.Realized, 2)
 	totals.Dividends = floorFloat(totals.Dividends, 2)

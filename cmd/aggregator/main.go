@@ -81,15 +81,14 @@ func main() {
 	stocks, totals := trading212.Aggregate(cfg.Splits, events)
 
 	log.WithFields(logrus.Fields{
-		"deposits":    totals.Deposits,
-		"depositfees": totals.DepositFees,
-		"invested":    totals.Invested,
-		"realized":    totals.Realized,
-		"dividends":   totals.Dividends,
-		"fees":        totals.Fees,
-		"taxes":       totals.Taxes,
-		"cash":        totals.Cash,
-		"interest":    totals.Interest,
+		"deposits":  totals.Deposits,
+		"invested":  totals.Invested,
+		"realized":  totals.Realized,
+		"dividends": totals.Dividends,
+		"fees":      totals.Fees,
+		"taxes":     totals.Taxes,
+		"cash":      totals.Cash,
+		"interest":  totals.Interest,
 	}).Info("Completed aggregation.")
 
 	// write output

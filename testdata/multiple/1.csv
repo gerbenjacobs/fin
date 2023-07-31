@@ -1,4 +1,4 @@
-Action,Time,ISIN,Ticker,Name,No. of shares,Price / share,Currency (Price / share),Exchange rate,Result (EUR),Total (EUR),Withholding tax,Currency (Withholding tax),Charge amount (EUR),Deposit fee (EUR),Stamp duty reserve tax (EUR),Notes,ID,Currency conversion fee (EUR),French transaction tax
+Action,Time,ISIN,Ticker,Name,No. of shares,Price / share,Currency (Price / share),Exchange rate,Result,Total,Withholding tax,Currency (Withholding tax),Charge amount,Deposit fee,Stamp duty reserve tax,Notes,ID,Currency conversion fee,French transaction tax
 Deposit,2021-08-09 15:25:29,,,,,,,,,1000.00,,,1000.00,,,"Transaction ID: xxx",d0ca160f-f407-4b9b-bb36-xxx,,
 
 

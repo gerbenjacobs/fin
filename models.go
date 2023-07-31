@@ -18,13 +18,12 @@ type Aggregate struct {
 }
 
 type Totals struct {
-	Deposits    float64 // the money you deposited
-	DepositFees float64 // the fees for depositing
-	Invested    float64 // the money you have invested, minus fees
-	Realized    float64 // gains you have realized by selling
-	Dividends   float64 // amount of money you received from dividends
-	Fees        float64 // fees you paid
-	Cash        float64 // cash left in your portfolio
-	Taxes       float64 // taxes withheld from dividends
-	Interest    float64 // interest you received on cash
+	Deposits  float64 // the money you deposited
+	Invested  float64 // the money you have invested, minus fees
+	Realized  float64 // gains you have realized by selling
+	Dividends float64 // amount of money you received from dividends
+	Fees      float64 // fees you paid
+	Cash      float64 // cash left in your portfolio
+	Taxes     float64 // taxes withheld from dividends
+	Interest  float64 // interest you received on cash
 }

@@ -3,12 +3,9 @@ package fin
 import (
 	"fmt"
 	"os"
-	"regexp"
 
 	"github.com/gocarina/gocsv"
 )
-
-var currencyNormalizerRegex = regexp.MustCompile(`\([A-Z]{3}\)`)
 
 func ReadCSVFile(fileName string, dst interface{}) error {
 	csvFile, err := os.Open(fileName)
@@ -17,10 +14,6 @@ func ReadCSVFile(fileName string, dst interface{}) error {
 	}
 	defer csvFile.Close()
 
-	// TODO: (July 2023) this is not used anymore, but our tests are using it
-	gocsv.SetHeaderNormalizer(func(s string) string {
-		return string(currencyNormalizerRegex.ReplaceAll([]byte(s), []byte("")))
-	})
 	return gocsv.UnmarshalFile(csvFile, dst)
 }
 

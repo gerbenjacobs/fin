@@ -1,4 +1,4 @@
-Action,Time,ISIN,Ticker,Name,No. of shares,Price / share,Currency (Price / share),Exchange rate,Result (GBP),Total (GBP),Withholding tax,Currency (Withholding tax),Charge amount (GBP),Deposit fee (GBP),Stamp duty reserve tax (GBP),Notes,ID,Currency conversion fee (GBP),French transaction tax
+Action,Time,ISIN,Ticker,Name,No. of shares,Price / share,Currency (Price / share),Exchange rate,Result,Total,Withholding tax,Currency (Withholding tax),Charge amount,Deposit fee,Stamp duty reserve tax,Notes,ID,Currency conversion fee,French transaction tax
 Deposit,2021-08-09 15:25:29,,,,,,,,,1000.00,,,1000.00,,,"Transaction ID: xxx",d0ca160f-f407-4b9b-bb36-xxx,,
 Market buy,2021-08-09 18:31:41,US30303M1027,FB,"Meta Platforms",0.0863914000,362.00,USD,1.17437,,26.67,,,,,,,EOF1,0.04,
 Market buy,2021-08-09 18:31:41,US88160R1014,TSLA,"Tesla",0.0766547000,713.93,USD,1.17437,,46.67,,,,,,,EOF2,0.07,

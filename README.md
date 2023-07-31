@@ -15,6 +15,13 @@ The goal of this tool is to give a big overview of your portfolio, along with fe
 It combines all transactions and comes up with a final tally, as such it's not meant to help with taxes.
 This also means that for the Yahoo format we don't show all lots, again, just the final tally.
 
+**Beware**
+
+Trading212 is under no obligation to keep their CSV format the same. History has proven that they
+do change things from time to time, which either invalidates old CSVs or won't work with new.
+
+We suggest to download new CSVs if you're experiencing problems. This can be done in 1-year increments.
+
 ## Usage
 
 ```bash
@@ -84,3 +91,10 @@ Remember to run the `aggregator` tool first to create your `aggregated_quotes.js
 use the `agg.json` example output file in this repo to test the reporting tool.
 
 The default currency is set to EUR, but you can use the dropdown to change it to GBP or USD.
+
+
+## Changelog
+
+- v0.2.3 - 2023-07-31 - Skip "Currency conversion" action + Deposits has changed fields
+- v0.2.2 - 2023-07-24 - Currency name not in headers anymore
+- v0.2.0 - 2023-06-06 - Added "Interest On Cash" field

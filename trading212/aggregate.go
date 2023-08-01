@@ -96,6 +96,15 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 		stocks[a.Symbol] = a
 	}
 
+	// calculate splits for untouched stocks
+	for _, split := range splits {
+		s := stocks[split.Symbol]
+		if split.Date > s.LastUpdate.Format("2006-01-02") {
+			s.ShareCount = s.ShareCount * split.Ratio
+		}
+		stocks[split.Symbol] = s
+	}
+
 	// calculate cash left over in portfolio
 	moneyGained := totals.Deposits + totals.Realized + totals.Dividends
 	moneySpent := totals.Invested + totals.Fees

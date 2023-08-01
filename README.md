@@ -95,6 +95,7 @@ The default currency is set to EUR, but you can use the dropdown to change it to
 
 ## Changelog
 
+- v0.2.4 - 2023-08-01 - Fix stock splits for stocks that are untouched + Update dependencies
 - v0.2.3 - 2023-07-31 - Skip "Currency conversion" action + Deposits has changed fields
 - v0.2.2 - 2023-07-24 - Currency name not in headers anymore
 - v0.2.0 - 2023-06-06 - Added "Interest On Cash" field

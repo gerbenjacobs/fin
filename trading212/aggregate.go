@@ -25,7 +25,7 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 		}
 
 		// handle interest
-		if e.Action == "Interest on cash" {
+		if e.Action == "Interest on cash" || e.Action == "Lending interest" {
 			totals.Interest += e.Total
 			continue
 		}

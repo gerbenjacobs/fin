@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// defaultTestDataEvents is a list of TradeEvents that matches testdata/tradign212.csv
+// defaultTestDataEvents is a list of TradeEvents that matches testdata/trading212.csv
 // this can be used by several tests
 var defaultTestDataEvents = []TradeEvent{
 	{Action: "Deposit", Time: DateTime{Time: time.Date(2021, 8, 9, 15, 25, 29, 0, time.UTC)}, Total: 1000, Notes: "Transaction ID: xxx", ID: "d0ca160f-f407-4b9b-bb36-xxx"},

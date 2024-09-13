@@ -7,7 +7,7 @@ import (
 	"github.com/gerbenjacobs/fin"
 )
 
-// Aggregate takes a map of events and aggregates them into a map of stocks and totals,
+// Aggregate takes a slice of events and aggregates them into a slice of stocks and totals,
 // based on the Trading212 algorithm, along with stock splits.
 func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.Totals) {
 	var stocks = make(map[string]fin.Aggregate)

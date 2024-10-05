@@ -18,7 +18,7 @@ var defaultTestDataEvents = []TradeEvent{
 	{Action: "Market buy", Time: DateTime{Time: time.Date(2021, 9, 27, 13, 19, 13, 0, time.UTC)}, ISIN: "US02079K1079", TickerSymbol: "ABEC", TickerName: "Google", ShareCount: 0.0041253700, SharePrice: 2424.00, ShareCurrency: "EUR", ExchangeRate: "1.00000", Total: 10.00, ID: "EOF5"},
 	{Action: "Dividend (Ordinary)", Time: DateTime{Time: time.Date(2021, 9, 30, 11, 15, 32, 0, time.UTC)}, ISIN: "US5949181045", TickerSymbol: "MSFT", TickerName: "Microsoft", ShareCount: 0.2709950000, SharePrice: 0.48, ShareCurrency: "USD", ExchangeRate: "Not available", Total: 0.11, Tax: 0.02, TaxCurrency: "USD"},
 	{Action: "Market buy", Time: DateTime{Time: time.Date(2022, 3, 7, 16, 10, 26, 0, time.UTC)}, ISIN: "FR0000120578", TickerSymbol: "SAN", TickerName: "Sanofi", ShareCount: 0.1117960000, SharePrice: 89.18, ShareCurrency: "EUR", ExchangeRate: "1.00000", Total: 10.00, ID: "EOF6", FRFee: 0.03},
-	{Action: "Market buy", Time: DateTime{Time: time.Date(2022, 7, 29, 14, 28, 17, 0, time.UTC)}, ISIN: "US02079K1079", TickerSymbol: "ABEC", TickerName: "Alphabet (Class C)", ShareCount: 2.2887315000, SharePrice: 113.60, ShareCurrency: "EUR", ExchangeRate: "1.00000", Total: 260.00, ID: "EOF7"},
+	{Action: "Market buy", Time: DateTime{Time: time.Date(2022, 7, 29, 14, 28, 17, 0, time.UTC)}, ISIN: "US02079K1079", TickerSymbol: "GOOG", TickerName: "Alphabet (Class C)", ShareCount: 2.2887315000, SharePrice: 113.60, ShareCurrency: "EUR", ExchangeRate: "1.00000", Total: 260.00, ID: "EOF7"},
 }
 
 func TestCollect(t *testing.T) {

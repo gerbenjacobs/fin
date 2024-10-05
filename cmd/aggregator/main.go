@@ -72,13 +72,14 @@ func main() {
 		"pies":      len(cfg.Pies),
 		"splits":    len(cfg.Splits),
 		"symbols":   len(cfg.Symbols),
+		"renames":   len(cfg.Renames),
 	}).Info("Starting process.")
 
 	// loop through directory and find csv files
 	events := trading212.Collect(cfg.Input)
 
 	// aggregate events via Trading212 algorithm
-	stocks, totals := trading212.Aggregate(cfg.Splits, events)
+	stocks, totals := trading212.Aggregate(cfg.Splits, cfg.Renames, events)
 
 	log.WithFields(logrus.Fields{
 		"deposits":  totals.Deposits,

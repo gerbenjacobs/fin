@@ -63,6 +63,12 @@ symbols:
   RIO: RIO.L
   SAN: SAN.PA
 
+# Renames deal with stocks that have changed their symbol
+# for example by becoming a new company or by being delisted
+renames:
+  GPS: GAP
+  TUP: TUPBQ
+ 
 # Pies allows you split your aggregation into multiple CSVs
 # uncomment to use
 #pies:
@@ -95,7 +101,8 @@ The default currency is set to EUR, but you can use the dropdown to change it to
 
 ## Changelog
 
-- v0.2.5 - 2024-02-98 - Added "Lending interest" field
+- v0.2.6 - 2024-10-05 - Added "Renames" config for renamed/delisted stocks
+- v0.2.5 - 2024-02-08 - Added "Lending interest" field
 - v0.2.4 - 2023-08-01 - Fix stock splits for stocks that are untouched + Update dependencies
 - v0.2.3 - 2023-07-31 - Skip "Currency conversion" action + Deposits has changed fields
 - v0.2.2 - 2023-07-24 - Currency name not in headers anymore

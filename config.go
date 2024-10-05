@@ -17,6 +17,7 @@ type Config struct {
 	PieOnly  string            `yaml:"pie-only"`
 	Splits   []Splits          `yaml:"splits"`
 	Symbols  map[string]string `yaml:"symbols"`
+	Renames  map[string]string `yaml:"renames"`
 	Pies     []struct {
 		Name    string   `yaml:"name"`
 		Symbols []string `yaml:"symbols"`

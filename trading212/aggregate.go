@@ -9,7 +9,7 @@ import (
 
 // Aggregate takes a map of events and aggregates them into a map of stocks and totals,
 // based on the Trading212 algorithm, along with stock splits.
-func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.Totals) {
+func Aggregate(splits []fin.Splits, renames map[string]string, events []TradeEvent) ([]fin.Aggregate, fin.Totals) {
 	var stocks = make(map[string]fin.Aggregate)
 	var stockNames []string
 	var totals fin.Totals
@@ -30,20 +30,26 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 			continue
 		}
 
+		// handle renamed stock symbols
+		symbol := e.TickerSymbol
+		if rn, ok := renames[symbol]; ok {
+			symbol = rn
+		}
+
 		// create entry if it doesn't exist
-		if _, ok := stocks[e.TickerSymbol]; !ok {
-			stocks[e.TickerSymbol] = fin.Aggregate{
-				Symbol: e.TickerSymbol,
+		if _, ok := stocks[symbol]; !ok {
+			stocks[symbol] = fin.Aggregate{
+				Symbol: symbol,
 			}
-			stockNames = append(stockNames, e.TickerSymbol)
+			stockNames = append(stockNames, symbol)
 		}
 
 		// calculate changes
-		a := stocks[e.TickerSymbol]
+		a := stocks[symbol]
 
 		// did a stock split happen today
 		for _, split := range splits {
-			if split.Symbol == e.TickerSymbol &&
+			if split.Symbol == symbol &&
 				split.Date > a.LastUpdate.Format("2006-01-02") && split.Date <= e.Time.Format("2006-01-02") {
 				a.ShareCount = a.ShareCount * split.Ratio
 			}
@@ -74,7 +80,8 @@ func Aggregate(splits []fin.Splits, events []TradeEvent) ([]fin.Aggregate, fin.T
 		totals.Taxes += e.Tax
 
 		// update totals
-		if a.ShareCount > 0 {
+		if floorFloat(a.ShareCount, 4) > 0 {
+			// if it's practically zero, reset it (float comparison issues)
 			a.AvgPrice = a.ShareCost / a.ShareCount
 		} else {
 			// during this event everything was sold

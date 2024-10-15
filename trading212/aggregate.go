@@ -14,19 +14,30 @@ func Aggregate(splits []fin.Splits, renames map[string]string, events []TradeEve
 	var stockNames []string
 	var totals fin.Totals
 	for _, e := range events {
-		// skip currency conversions
-		if e.Action == "Currency conversion" {
+		// skip every event we don't deal with
+		if e.IsSkippable() {
 			continue
 		}
-		// handle deposits
-		if e.Action == "Deposit" {
+		// handle deposits or additions
+		if e.Action == "Deposit" || e.Action == "Spending cashback" {
 			totals.Deposits += e.Total
+			totals.Withdrawals -= e.DepositFee
+			continue
+		}
+		// handle interest
+		if e.IsInterest() {
+			totals.Interest += e.Total
+			continue
+		}
+		// handle money withdrawl
+		if e.IsMoneyWithdrawal() {
+			// we subtract the total, because it's stored as a negative number
+			totals.Withdrawals -= e.Total
 			continue
 		}
 
-		// handle interest
-		if e.Action == "Interest on cash" || e.Action == "Lending interest" {
-			totals.Interest += e.Total
+		// if no action matches, but our symbol is empty, we continue too
+		if e.TickerSymbol == "" {
 			continue
 		}
 
@@ -114,7 +125,7 @@ func Aggregate(splits []fin.Splits, renames map[string]string, events []TradeEve
 
 	// calculate cash left over in portfolio
 	moneyGained := totals.Deposits + totals.Realized + totals.Dividends
-	moneySpent := totals.Invested + totals.Fees
+	moneySpent := totals.Invested + totals.Fees + totals.Withdrawals
 	totals.Cash = moneyGained - moneySpent
 
 	// format money values to 2 decimals
@@ -135,6 +146,7 @@ func Aggregate(splits []fin.Splits, renames map[string]string, events []TradeEve
 	totals.Fees = floorFloat(totals.Fees, 2)
 	totals.Cash = floorFloat(totals.Cash, 2)
 	totals.Taxes = floorFloat(totals.Taxes, 2)
+	totals.Withdrawals = floorFloat(totals.Withdrawals, 2)
 
 	// sort and collate aggregates
 	sort.Strings(stockNames)

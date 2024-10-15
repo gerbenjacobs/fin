@@ -32,13 +32,14 @@ func TestAggregate(t *testing.T) {
 				{Symbol: "TSLA", Name: "Tesla", ShareCount: 0.076654, AvgPrice: 713.94, PriceCurrency: "USD", ShareCost: 54.72, ShareCostLocal: 46.67, ShareResult: 0, TotalDividend: 0, Fees: 0.07, Final: -0.08, LastUpdate: time.Date(2021, 8, 9, 18, 31, 41, 0, time.UTC)},
 			},
 			totals: &fin.Totals{
-				Deposits:  2000,
-				Invested:  353.2,
-				Realized:  2.61,
-				Dividends: 0.11,
-				Fees:      0.34,
-				Cash:      1649.17,
-				Taxes:     0.02,
+				Deposits:    2000,
+				Invested:    353.2,
+				Realized:    2.61,
+				Dividends:   0.11,
+				Fees:        0.34,
+				Cash:        1650.58,
+				Taxes:       0.02,
+				Withdrawals: -1.4,
 			},
 		},
 		{
@@ -61,6 +62,21 @@ func TestAggregate(t *testing.T) {
 				{Symbol: "FB", ShareCount: 0, AvgPrice: 0, ShareCost: 0, ShareCostLocal: 0, ShareResult: 100, TotalDividend: 0, Fees: 0, Final: 100, LastUpdate: time.Date(2022, 9, 27, 13, 19, 13, 0, time.UTC)},
 			},
 		},
+		{
+			name: "Test operations with T212 card",
+			events: []TradeEvent{
+				{Action: "New card cost", Time: DateTime{Time: time.Date(2021, 9, 27, 13, 19, 13, 0, time.UTC)}, Total: -4.95, TotalCurrency: "EUR", ID: "EOF1"},
+				{Action: "Spending cashback", Time: DateTime{Time: time.Date(2022, 9, 27, 13, 19, 13, 0, time.UTC)}, Total: 0.22, TotalCurrency: "EUR", ID: "EOF2"},
+				{Action: "Deposit", Time: DateTime{Time: time.Date(2022, 9, 27, 13, 19, 13, 0, time.UTC)}, Total: 100, TotalCurrency: "EUR", ID: "EOF3"},
+				{Action: "Card debit", Time: DateTime{Time: time.Date(2022, 9, 27, 13, 19, 13, 0, time.UTC)}, Total: -15, TotalCurrency: "EUR", ID: "EOF4"},
+			},
+			want: []fin.Aggregate{},
+			totals: &fin.Totals{
+				Deposits:    100.22,
+				Cash:        80.27,
+				Withdrawals: 19.95, // New card cost + Card debit
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -73,9 +89,17 @@ func TestAggregate(t *testing.T) {
 
 			if tt.totals != nil {
 				if !reflect.DeepEqual(totals, *tt.totals) {
-					t.Errorf("totals are a mismatch \n%#v\n%#v", totals, tt.totals)
+					t.Errorf("totals are a mismatch \n%#v\n%#v", totals, *tt.totals)
 				}
 			}
 		})
 	}
 }
+
+/*
+   trading212.TradeEvent{Action:"Deposit", Time:time.Date(2021, time.August, 9, 15, 25, 29, 0, time.UTC), ISIN:"", TickerSymbol:"", TickerName:"", ShareCount:0, SharePrice:0, ShareCurrency:"", ExchangeRate:"", ChargeAmount:1000, DepositFee:0, Result:0, ResultCurrency:"", Total:1000, TotalCurrency:"", Tax:0, TaxCurrency:"", StampDuty:0, StampDutyTax:0, Notes:"Transaction ID: xxx", ID:"d0ca160f-f407-4b9b-bb36-xxx", FXFee:0, FRFee:0, FinraFee:0, MerchantName:"", MerchantCategory:""}
+   trading212.TradeEvent{Action:"Deposit", Time:time.Date(2021, time.August, 9, 15, 25, 29, 0, time.UTC), ISIN:"", TickerSymbol:"", TickerName:"", ShareCount:0, SharePrice:0, ShareCurrency:"", ExchangeRate:"", ChargeAmount:0, DepositFee:0, Result:0, ResultCurrency:"", Total:1000, TotalCurrency:"", Tax:0, TaxCurrency:"", StampDuty:0, StampDutyTax:0, Notes:"Transaction ID: xxx", ID:"d0ca160f-f407-4b9b-bb36-xxx", FXFee:0, FRFee:0, FinraFee:0, MerchantName:"", MerchantCategory:""}
+
+            trading212.TradeEvent{Action:"Deposit", Time:time.Date(2021, time.September, 7, 13, 43, 10, 0, time.UTC), ISIN:"", TickerSymbol:"", TickerName:"", ShareCount:0, SharePrice:0, ShareCurrency:"", ExchangeRate:"", ChargeAmount:1001.4, DepositFee:1.4, Result:0, ResultCurrency:"", Total:1000, TotalCurrency:"", Tax:0, TaxCurrency:"", StampDuty:0, StampDutyTax:0, Notes:"Transaction ID: xxx", ID:"3e8f5274-1c62-46d6-baf4-xxx", FXFee:0, FRFee:0, FinraFee:0, MerchantName:"", MerchantCategory:""}
+            trading212.TradeEvent{Action:"Deposit", Time:time.Date(2021, time.September, 7, 13, 43, 10, 0, time.UTC), ISIN:"", TickerSymbol:"", TickerName:"", ShareCount:0, SharePrice:0, ShareCurrency:"", ExchangeRate:"", ChargeAmount:1000, DepositFee:0, Result:0, ResultCurrency:"", Total:1000, TotalCurrency:"", Tax:0, TaxCurrency:"", StampDuty:0, StampDutyTax:0, Notes:"Transaction ID: xxx", ID:"3e8f5274-1c62-46d6-baf4-xxx", FXFee:0, FRFee:0, FinraFee:0, MerchantName:"", MerchantCategory:""}
+*/

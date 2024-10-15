@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"math"
 	"os"
 	"strings"
 
@@ -82,14 +83,16 @@ func main() {
 	stocks, totals := trading212.Aggregate(cfg.Splits, cfg.Renames, events)
 
 	log.WithFields(logrus.Fields{
-		"deposits":  totals.Deposits,
-		"invested":  totals.Invested,
-		"realized":  totals.Realized,
-		"dividends": totals.Dividends,
-		"fees":      totals.Fees,
-		"taxes":     totals.Taxes,
-		"cash":      totals.Cash,
-		"interest":  totals.Interest,
+		"deposits":            totals.Deposits,
+		"invested":            totals.Invested,
+		"realized":            totals.Realized,
+		"realized-with-costs": ceilFloat(totals.Realized-totals.Fees-totals.Taxes, 2),
+		"dividends":           totals.Dividends,
+		"fees":                totals.Fees,
+		"taxes":               totals.Taxes,
+		"cash":                totals.Cash,
+		"interest":            totals.Interest,
+		"withdrawals":         totals.Withdrawals,
 	}).Info("Completed aggregation.")
 
 	// write output
@@ -207,4 +210,9 @@ func writeOutputJSON(cfg fin.Config, outputName string, output interface{}) stri
 	}
 
 	return fn
+}
+
+func ceilFloat(f float64, precision int) float64 {
+	d := math.Pow(10, float64(precision))
+	return math.Ceil(f*d) / d
 }

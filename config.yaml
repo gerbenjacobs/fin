@@ -21,6 +21,12 @@ symbols:
   RIO: RIO.L
   SAN: SAN.PA
 
+# Renames deal with stocks that have changed their symbol
+# for example by becoming a new company or by being delisted
+renames:
+  GPS: GAP
+  TUP: TUPBQ
+
 # Pies allows you split your aggregation into multiple CSVs
 # uncomment to use
 #pies:

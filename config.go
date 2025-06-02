@@ -61,8 +61,8 @@ func GetConfig(file string) (Config, error) {
 func createConfig() {
 	data := `---
 # Required config
-input: data # folder where your Trading212 CSVs are stored
-output: aggregated_quotes # name of output file (prefix)
+input: testdata # folder where your Trading212 CSVs are stored
+output: agg # name of output file (prefix)
 format: aggregate # aggregate or yahoo
 
 # Optional config
@@ -81,6 +81,12 @@ splits:
 symbols:
   RIO: RIO.L
   SAN: SAN.PA
+
+# Renames deal with stocks that have changed their symbol
+# for example by becoming a new company or by being delisted
+renames:
+  GPS: GAP
+  TUP: TUPBQ
 
 # Pies allows you split your aggregation into multiple CSVs
 # uncomment to use

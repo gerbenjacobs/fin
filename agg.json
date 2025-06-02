@@ -1,17 +1,17 @@
 [
  {
   "Symbol": "ABEC",
-  "Name": "Alphabet (Class C)",
-  "ShareCount": 2.371231,
-  "AvgPrice": 113.86,
+  "Name": "Google",
+  "ShareCount": 0.0825,
+  "AvgPrice": 2424.24,
   "PriceCurrency": "EUR",
-  "ShareCost": 270,
-  "ShareCostLocal": 270,
+  "ShareCost": 10,
+  "ShareCostLocal": 10,
   "ShareResult": 0,
   "TotalDividend": 0,
   "Fees": 0,
   "Final": 0,
-  "LastUpdate": "2022-07-29T14:28:17Z"
+  "LastUpdate": "2021-09-27T13:19:13Z"
  },
  {
   "Symbol": "FB",
@@ -26,6 +26,20 @@
   "Fees": 0.04,
   "Final": -0.04,
   "LastUpdate": "2021-08-09T18:31:41Z"
+ },
+ {
+  "Symbol": "GOOG",
+  "Name": "Alphabet (Class C)",
+  "ShareCount": 2.288731,
+  "AvgPrice": 113.6,
+  "PriceCurrency": "EUR",
+  "ShareCost": 260,
+  "ShareCostLocal": 260,
+  "ShareResult": 0,
+  "TotalDividend": 0,
+  "Fees": 0,
+  "Final": 0,
+  "LastUpdate": "2022-07-29T14:28:17Z"
  },
  {
   "Symbol": "MSFT",
